@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Flow Pro | Secure Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Georgia', serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0f172a;
+
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            color: white;
+        }
+
+        /* --- THE LOGO PLAQUE --- */
+        .gold-plaque {
+            background: linear-gradient(145deg, #d4af37, #8e6d2d);
+            border: 3px solid #5e4a1e;
+            padding: 15px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            border-radius: 4px;
+            transform: perspective(500px) rotateX(5deg);
+        }
+
+        .gold-plaque h1 {
+            color: #2c1e05;
+            font-size: 1.6rem;
+            letter-spacing: 4px;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        /* --- THE GLASS LOGIN CARD --- */
+        .login-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 420px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.1);
+            text-align: center;
+        }
+
+        /* --- INPUTS & SELECT --- */
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1.5px solid rgba(0, 212, 255, 0.5);
+            border-radius: 8px;
+            color: #00d4ff;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            outline: none;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        input::placeholder {
+            color: rgba(0, 212, 255, 0.5);
+            text-transform: uppercase;
+        }
+
+        .input-group.select-wrapper::after {
+            content: '▼';
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            color: #00d4ff;
+            pointer-events: none;
+            font-size: 0.7rem;
+        }
+
+        select {
+            appearance: none;
+            cursor: pointer;
+        }
+
+        option {
+            background: #1e293b;
+            color: white;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: #00d4ff;
+            border: none;
+            border-radius: 30px;
+            color: #000;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.4s;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background: #fff;
+            box-shadow: 0 0 25px #00d4ff;
+            transform: translateY(-2px);
+        }
+
+        .gear-bg {
+            position: absolute;
+            z-index: 1;
+            opacity: 0.1;
+            filter: cyan;
+            animation: rotate 20s linear infinite;
+        }
+
+        .signup-link {
+    margin-top: 25px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.5px;
+}
+
+.signup-link a {
+    color: #00d4ff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-left: 5px;
+    text-transform: uppercase;
+}
+
+.signup-link a:hover {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+    text-decoration: underline;
+}
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <svg class="gear-bg" style="top: 10%; left: 5%; width: 200px;" viewBox="0 0 24 24" fill="cyan">
+        <path
+            d="M12 15.5A3.5 3.5 0 0 1 8.5 12 3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.52c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65z" />
+    </svg>
+
+    <div class="login-container">
+        <div class="gold-plaque">
+            <h1>Document Flow Pro</h1>
+        </div>
+
+        <form id="loginForm">
+            <div class="input-group select-wrapper">
+                <select id="role" required>
+                    <option value="" disabled selected>SELECT ROLE</option>
+                    <option value="admin">ADMINISTRATOR</option>
+                    <option value="teacher">TEACHER</option>
+                    <option value="student">STUDENT</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Username" required>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+
+            <button type="submit" class="login-btn">Secure Access</button>
+        </form>
+        <div class="signup-link">
+            Don't have an account? <a href="sign_up.html">Sign Up</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const role = document.getElementById('role').value;
+            const user = document.getElementById('username').value;
+
+            alert(`Authenticating ${user} as ${role}...`);
+
+            if (role === 'admin') {
+                window.location.href = '/admin-dashboard';
+            } else if (role === 'teacher') {
+                window.location.href = '/teacher-portal';
+            } else {
+                window.location.href = '/student-home';
+            }
+        });
+    </script>
+</body>
+
+</html>
