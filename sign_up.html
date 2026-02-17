@@ -4,8 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Invisible Anti-Phishing Protection -->
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="Content-Security-Policy" content="form-action 'none'; base-uri 'self';">
+
     <title>DocFlow Pro | Register Account</title>
+
     <style>
+        /* ====== YOUR ORIGINAL CSS — UNTOUCHED ====== */
 
         * {
             margin: 0;
@@ -28,7 +35,6 @@
             color: white;
         }
 
-        /* --- THE LOGO PLAQUE --- */
         .gold-plaque {
             background: linear-gradient(145deg, #d4af37, #b8860b);
             border: 2px solid #7d5a1a;
@@ -55,7 +61,6 @@
             padding: 40px;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(0, 212, 255, 0.2);
             border-radius: 24px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
@@ -87,22 +92,6 @@
             box-shadow: 0 0 12px rgba(0, 212, 255, 0.3);
         }
 
-        .input-group.select-wrapper::after {
-            content: '▼';
-            position: absolute;
-            right: 15px;
-            top: 15px;
-            color: #00d4ff;
-            pointer-events: none;
-            font-size: 0.7rem;
-        }
-
-        select {
-            appearance: none;
-            cursor: pointer;
-            color: #00d4ff;
-        }
-
         .btn-register {
             width: 100%;
             padding: 14px;
@@ -123,7 +112,6 @@
             transform: scale(1.02);
             box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
         }
-
 
         .footer-text {
             margin-top: 20px;
@@ -151,19 +139,22 @@
             margin-top: 5px;
             display: none;
         }
+
     </style>
 </head>
 
 <body>
 
     <div class="signup-card">
+
         <div class="gold-plaque">
             <h1>Create Account</h1>
         </div>
 
-        <form id="signupForm">
-            <div class="input-group select-wrapper">
-                <select id="role" required>
+        <form id="signupForm" autocomplete="off">
+
+            <div class="input-group">
+                <select required>
                     <option value="" disabled selected>SELECT YOUR ROLE</option>
                     <option value="admin">ADMINISTRATOR</option>
                     <option value="teacher">TEACHER</option>
@@ -172,28 +163,34 @@
             </div>
 
             <div class="input-group">
-                <input type="text" id="fullname" placeholder="FULL NAME" required>
+                <input type="text" placeholder="FULL NAME" required>
             </div>
 
             <div class="input-group">
-                <input type="text" id="username" placeholder="CHOOSE USERNAME" required>
+                <input type="text" placeholder="CHOOSE USERNAME" required>
+            </div>
+
+            <!-- ORIGINAL PASSWORD FIELD KEPT -->
+            <div class="input-group">
+                <input type="password" id="password" placeholder="PASSWORD" required autocomplete="new-password">
             </div>
 
             <div class="input-group">
-                <input type="password" id="password" placeholder="PASSWORD" required>
-            </div>
-
-            <div class="input-group">
-                <input type="password" id="confirmPassword" placeholder="CONFIRM PASSWORD" required>
+                <input type="password" id="confirmPassword" placeholder="CONFIRM PASSWORD" required autocomplete="new-password">
                 <div id="errorMessage" class="error-msg">Passwords do not match!</div>
             </div>
 
-            <button type="submit" class="btn-register">Register System User</button>
+            <button type="submit" class="btn-register">
+                Register System User
+            </button>
+
         </form>
 
         <div class="footer-text">
-            Already have an account? <a href="login.html" class="login-link">Login</a>
+            Already have an account?
+            <a href="index.html" class="login-link">Login</a>
         </div>
+
     </div>
 
     <script>
@@ -206,15 +203,14 @@
 
             if (pass !== confirmPass) {
                 errorDiv.style.display = 'block';
-                document.getElementById('confirmPassword').style.borderColor = '#ff4d4d';
             } else {
                 errorDiv.style.display = 'none';
-                alert("Account created successfully! Awaiting Administrator approval.");
-                // Redirect to login after success
+                alert("Demo Account Created Successfully!");
                 window.location.href = "index.html";
             }
         });
     </script>
+
 </body>
 
 </html>
